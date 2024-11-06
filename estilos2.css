@@ -1,293 +1,285 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    background-color: #f4f4f4;
+	background: #ddeefc;
+	font-family: 'Lato', sans-serif;
 }
 
-header {
-    background: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    transition: all 0.3s ease;
+.contenedor {
+	width: 90%;
+	max-width: 1000px;
+	padding: 40px 20px;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-header.scrolled {
-    padding: 10px;
-    font-size: 0.9rem;
+.tarjeta {
+	width: 100%;
+	max-width: 550px;
+	position: relative;
+	color: #fff;
+	transition: .3s ease all;
+	transform: rotateY(0deg);
+	transform-style: preserve-3d;
+	cursor: pointer;
+	z-index: 2;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 1.8rem;
-    transition: font-size 0.3s ease;
+.tarjeta.active {
+	transform: rotateY(180deg);
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
+.tarjeta > div {
+	padding: 30px;
+	border-radius: 15px;
+	min-height: 315px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	box-shadow: 0 10px 10px 0 rgba(90,116,148,0.3);
 }
 
-nav ul li {
-    display: inline;
-    margin: 0 15px;
+.tarjeta .delantera {
+	width: 100%;
+	background: url(../img/bg-tarjeta/bg-tarjeta-03.jpg);
+	background-size: cover;
 }
 
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
+.delantera .logo-marca {
+	text-align: right;
+	min-height: 50px;
 }
 
-nav ul li a:hover {
-    text-decoration: none;
+.delantera .logo-marca img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	max-width: 80px;
 }
 
-section {
-    padding: 20px;
+.delantera .chip {
+	width: 100%;
+	max-width: 50px;
+	margin-bottom: 20px;
 }
 
-#productos {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+.delantera .grupo .label {
+	font-size: 16px;
+	color: #7d8994;
+	margin-bottom: 5px;
 }
 
-.producto {
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    padding: 15px;
-    margin: 10px;
-    width: 300px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background: #fff;
-    text-align: center;
-    transition: transform 0.3s;
+.delantera .grupo .numero,
+.delantera .grupo .nombre,
+.delantera .grupo .expiracion {
+	color: #fff;
+	font-size: 22px;
+	text-transform: uppercase;
 }
 
-.producto:hover {
-    transform: scale(1.05);
+.delantera .flexbox {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
 }
 
-.producto img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
+.trasera {
+	background: url(../img/bg-tarjeta/bg-tarjeta-03.jpg);
+	background-size: cover;
+	position: absolute;
+	top: 0;
+	transform: rotateY(180deg);
+	backface-visibility: hidden;
 }
 
-.producto h3 {
-    font-size: 1.2rem;
-    color: #333;
+.trasera .barra-magnetica {
+	height: 40px;
+	background: #000;
+	width: 100%;
+	position: absolute;
+	top: 30px;
+	left: 0;
 }
 
-.producto p {
-    font-size: 0.9rem;
-    color: #555;
-    margin: 0.5rem 0;
+.trasera .datos {
+	margin-top: 60px;
+	display: flex;
+	justify-content: space-between;
 }
 
-button {
-    background: #007BFF;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 1rem;
-    border-radius: 5px;
+.trasera .datos p {
+	margin-bottom: 5px;
 }
 
-button:hover {
-    background: #0056b3;
+.trasera .datos #firma {
+	width: 70%;
 }
 
-.add-to-cart-btn {
-    background-color: #ff9900;
-    border: none;
-    color: #fff;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+.trasera .datos #firma .firma {
+	height: 40px;
+	background: repeating-linear-gradient(skyblue 0, skyblue 5px, orange 5px, orange 10px);
 }
 
-.add-to-cart-btn:hover {
-    background-color: #cc7a00;
+.trasera .datos #firma .firma p {
+	line-height: 40px;
+	font-family: 'Liu Jian Mao Cao', cursive;
+	color: #000;
+	font-size: 30px;
+	padding: 0 10px;
+	text-transform: capitalize;
 }
 
-#carrito-icon {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-    display: block;
+.trasera .datos #ccv {
+	width: 20%;
 }
 
-#carrito-icon img {
-    width: 60px;
-    height: auto;
-    cursor: pointer;
-    transition: transform 0.3s;
+.trasera .datos #ccv .ccv {
+	background: #fff;
+	height: 40px;
+	color: #000;
+	padding: 10px;
+	text-align: center;
 }
 
-#carrito-icon:hover img {
-    transform: scale(1.2);
+.trasera .leyenda {
+	font-size: 14px;
+	line-height: 24px;
 }
 
-.carrito-productos {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-    margin-top: 1rem;
+.trasera .link-banco {
+	font-size: 14px;
+	color: #fff;
 }
 
-.item-carrito {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem;
-    border-bottom: 1px solid #ccc;
+.contenedor-btn .btn-abrir-formulario {
+	width: 50px;
+	height: 50px;
+	font-size: 20px;
+	line-height: 20px;
+	background: #2364d2;
+	color: #fff;
+	position: relative;
+	top: -25px;
+	z-index: 3;
+	border-radius: 100%;
+	box-shadow: -5px 4px 8px rgba(24,56,182,0.4);
+	padding: 5px;
+	transition: all .2s ease;
+	border: none;
+	cursor: pointer;
 }
 
-.carrito-total {
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-align: right;
-    padding: 1rem;
-    background: #f1f1f1;
-    border-top: 1px solid #ddd;
-    margin-top: 1rem;
+.contenedor-btn .btn-abrir-formulario:hover {
+	background: #1850b1;
 }
 
-.carrito-count-icon {
-    color: white;
-    border: none;
-    padding: 3px 5px;
-    font-size: 1rem;
-    border-radius: 5px;
-    background-color: rgb(255, 0, 0);
-    border: 1px solid rgb(0, 0, 0);
-    border-radius: 70%;
-    width: 10px;
-    height: 13px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.contenedor-btn .btn-abrir-formulario.active {
+	transform: rotate(45deg);
 }
 
-.boton-compra {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.2rem;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    margin-top: 1rem;
-    border-radius: 5px;
+.formulario-tarjeta {
+	background: #fff;
+	width: 100%;
+	max-width: 700px;
+	padding: 150px 30px 30px 30px;
+	border-radius: 10px;
+	position: relative;
+	top: -150px;
+	z-index: 1;
+	clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+	transition: clip-path .3s ease-out;
 }
 
-.boton-compra:hover {
-    background-color: #218838;
+.formulario-tarjeta.active {
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
-footer {
-    background: #333;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    width: auto;
-    margin-top: 20px;
+.formulario-tarjeta label {
+	display: block;
+	color: #7d8994;
+	margin-bottom: 5px;
+	font-size: 16px;
 }
 
-.footer-content {
-    max-width: 1200px;
-    margin: auto;
+.formulario-tarjeta input,
+.formulario-tarjeta select,
+.btn-enviar {
+	border: 2px solid #CED6E0;
+	font-size: 18px;
+	height: 50px;
+	width: 100%;
+	padding: 5px 12px;
+	transition: .3s ease all;
+	border-radius: 5px;
 }
 
-.footer-links {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
+.formulario-tarjeta input:hover,
+.formulario-tarjeta select:hover {
+	border: 2px solid #93BDED;
 }
 
-.links {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-    transition: color 0.5s;
+.formulario-tarjeta input:focus,
+.formulario-tarjeta select:focus {
+	outline: rgb(4,4,4);
+	box-shadow: 1px 7px 10px -5px rgba(90,116,148,0.3);
 }
 
-.links:hover {
-    color: #ff0000;
+.formulario-tarjeta input {
+	margin-bottom: 20px;
+	text-transform: uppercase;
 }
 
-.video-promocional {
-    text-align: center;
+.formulario-tarjeta .flexbox {
+	display: flex;
+	justify-content: space-between;
 }
 
-.rtx-3080 {
-    text-align: center;
+.formulario-tarjeta .expira {
+	width: 100%;
 }
 
-.registrationForm {
-    border: 1px solid #000000;
-    padding: 90px;
-    margin: 3%;
-    width: auto;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background: #fff;
-    text-align: center;
+.formulario-tarjeta .ccv {
+	min-width: 100px;
 }
 
-.productos-inicio {
-    text-align: center;
+.formulario-tarjeta .grupo-select {
+	width: 100%;
+	margin-right: 15px;
+	position: relative;
 }
 
-.icono-contenedor {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
+.formulario-tarjeta select {
+	-webkit-appearance: none;
 }
 
-.icono-circulo {
-    background-color: black;
-    border: 1px solid white;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+.formulario-tarjeta .grupo-select i {
+	position: absolute;
+	color: #CED6E0;
+	top: 18px;
+	right: 15px;
+	transition: .3s ease all;
 }
 
-.icono-circulo:hover {
-    background-color: white;
-    transform: scale(1.1);
+.formulario-tarjeta .grupo-select:hover i {
+	color: #93bfed;
 }
 
-.icono-hover {
-    fill: white;
-    transition: fill 0.3s ease;
-    width: 50%;
-    height: 50%;
+.formulario-tarjeta .btn-enviar {
+	border: none;
+	padding: 10px;
+	font-size: 22px;
+	color: #fff;
+	background: #2364d2;
+	box-shadow: 2px 2px 10px 0px rgba(0,85,212,0.4);
+	cursor: pointer;
 }
 
-.icono-circulo:hover .icono-hover {
-    fill: red;
-}
-
-.logo {
-    width: 20%;
-    height: auto; 
+.formulario-tarjeta .btn-enviar:hover {
+	background: #1850b1;
 }
